@@ -7,7 +7,7 @@ COMPUTER_MARKER = '0'
 SCORE_TO_WIN = 5
 
 def display_board(board):
-    os.system('clear')
+    # os.system('clear')
     prompt(f"You are {HUMAN_MARKER}. Computer is {COMPUTER_MARKER}")
 
     print('')
@@ -119,41 +119,45 @@ board = {
 
 
 def play_tic_tac_toe():
-    # while True:
-    #     score = {
-    #     'Player' : 0,
-    #     'Computer' : 0
-    #      }
-        
     while True:
         score = {
-            'Player' : 0,
-            'Computer' : 0
-            }
+        'Player' : 0,
+        'Computer' : 0
+        }
         
-        board = initialize_board()
-
         while True:
-            display_board(board)
+            board = initialize_board()
 
-            player_chooses_square(board)
-            if someone_won(board) or board_full(board):
+            while True:
+                display_board(board)
+
+                player_chooses_square(board)
+                if someone_won(board) or board_full(board):
+                    break
+
+                computer_chooses_square(board)
+                if someone_won(board) or board_full(board):
+                    break
+
+            if someone_won(board):
+                prompt(f"{detect_winner(board)} won!")
+            else:
+                prompt(f"It's a tie!")
+
+            if detect_winner(board) == 'Player':
+                score['Player'] += 1
+            elif detect_winner(board) == 'Computer':
+                score['Computer'] += 1
+
+            prompt(f"SCORE Player {score['Player']} : Computer {score['Computer']}")
+
+            if score['Player'] == SCORE_TO_WIN:
+                prompt(f'You won the game. Congratulations!')
                 break
-
-            computer_chooses_square(board)
-            if someone_won(board) or board_full(board):
+            elif score['Computer'] == SCORE_TO_WIN:
+                prompt('Computer won the game!')
                 break
-
-        if someone_won(board):
-            prompt(f"{detect_winner(board)} won!")
-        else:
-            prompt(f"It's a tie!")
-
-        # keep_score(detect_winner(score))
-        # display_score(score)
-    
-    # display_winner()
-
+            
     
         prompt('Play agan? (y or n)')
         answer = input().lower()
