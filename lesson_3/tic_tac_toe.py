@@ -5,12 +5,15 @@ FIRST_MOVE = 'Computer' # Options are 'Computer', 'Player', 'Choose'
 INITIAL_MARKER = ' '
 HUMAN_MARKER = 'X'
 COMPUTER_MARKER = '0'
-SCORE_TO_WIN = 5
+SCORE_TO_WIN = 1
 WINNING_LINES = [
     [1, 2, 3], [4, 5, 6], [7, 8, 9], # rows
     [1, 4, 7], [2, 5, 8], [3, 6, 9], # columns
     [1, 5, 9], [3, 5, 7]             # diagonals
         ]
+
+END_GAME = ['n', 'no']
+DONT_END_GAME = ['y', 'yes']
 
 def display_welcome_massage():
     prompt(f"You are {HUMAN_MARKER}. Computer is {COMPUTER_MARKER}")
@@ -211,9 +214,18 @@ def play_tic_tac_toe():
             
     
         prompt('Play agan? (y or n)')
-        answer = input().lower()
+        # answer = input().lower()
 
-        if answer[0] != 'y':
+        while True:
+            answer = input().lower()
+            
+            if answer.lower().strip() in (END_GAME + DONT_END_GAME):
+                break
+
+            prompt("It's not a valid answer. Try again. ")
+            
+            
+        if answer.lower().strip() in END_GAME:
             break
 
     prompt('Thanks for playing Tic Tac Toe!')
