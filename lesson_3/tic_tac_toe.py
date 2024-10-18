@@ -1,6 +1,7 @@
 import random
 import os
 
+FIRST_MOVE = 'Computer' # Options are 'Computer', 'Player', 'Choose'
 INITIAL_MARKER = ' '
 HUMAN_MARKER = 'X'
 COMPUTER_MARKER = '0'
@@ -11,11 +12,12 @@ WINNING_LINES = [
     [1, 5, 9], [3, 5, 7]             # diagonals
         ]
 
+def display_welcome_massage():
+    prompt(f"You are {HUMAN_MARKER}. Computer is {COMPUTER_MARKER}")
 
 def display_board(board):
     # os.system('clear')
-    prompt(f"You are {HUMAN_MARKER}. Computer is {COMPUTER_MARKER}")
-
+    
     print('')
     print('     |     |')
     print(f"  {board[1]}  |  {board[2]}  | {board[3]}")
@@ -131,8 +133,6 @@ def display_score(score):
     prompt(f"Current score is {score['Player']} : {score['Computer']}")
 
 
-
-
 board = {
     1 : ' ', # top left
     2 : ' ', # top center
@@ -152,20 +152,43 @@ def play_tic_tac_toe():
         'Player' : 0,
         'Computer' : 0
         }
+
+        if FIRST_MOVE == 'Choose':
+            who_starts = input('Who should go first? Player (p) or computer (c)\n')
+        else:
+            who_starts = FIRST_MOVE
+            prompt(f'{who_starts} goes first.')
         
         while True:
             board = initialize_board()
+            display_welcome_massage()
+            display_board(board)
 
             while True:
-                display_board(board)
 
-                player_chooses_square(board)
-                if someone_won(board) or board_full(board):
-                    break
+                # display_board(board)
 
-                computer_chooses_square(board)
-                if someone_won(board) or board_full(board):
-                    break
+                if who_starts[0].lower() == 'p':
+                    player_chooses_square(board)
+                    display_board(board)
+                    if someone_won(board) or board_full(board):
+                        break
+
+                    computer_chooses_square(board)
+                    display_board(board)
+                    if someone_won(board) or board_full(board):
+                        break
+
+                elif who_starts[0].lower() == 'c':
+                    computer_chooses_square(board)
+                    display_board(board)
+                    if someone_won(board) or board_full(board):
+                        break
+                
+                    player_chooses_square(board)
+                    display_board(board)
+                    if someone_won(board) or board_full(board):
+                        break
 
             if someone_won(board):
                 prompt(f"{detect_winner(board)} won!")
