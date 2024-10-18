@@ -39,7 +39,7 @@ def prompt(message):
 def empty_squares(board):
     return [key for key, value in board.items() if value == INITIAL_MARKER]
 
-def join_or(valid_choices, delimiter=', ', conjunction='or'): # From a list, output 1, 2, or 3.
+def join_or(valid_choices, delimiter=', ', conjunction='or'):
     valid_choices_str = [str(num) for num in valid_choices]
     if not valid_choices_str:
         return ''
@@ -62,10 +62,10 @@ def player_chooses_square(board):
 
     board[int(square)] = HUMAN_MARKER
 
-def find_at_risk_square(line, board):
+def find_at_risk_square(line, board, marker):
     markers_in_line = [board[square] for square in line]
 
-    if markers_in_line.count(HUMAN_MARKER) == 2:
+    if markers_in_line.count(marker) == 2:
         for square in line:
             if board[square] == INITIAL_MARKER:
                 return square
@@ -77,13 +77,22 @@ def computer_chooses_square(board):
         return
     
     square = None
-    for line in WINNING_LINES:
-        square = find_at_risk_square(line, board)
-        if square:
-            break
+    if board[5] == INITIAL_MARKER:
+        square = 5
+    else:
+        for line in WINNING_LINES:
+            square = find_at_risk_square(line, board, COMPUTER_MARKER)
+            if square:
+                break
+        
+        if not square:
+            for line in WINNING_LINES:
+                square = find_at_risk_square(line, board, HUMAN_MARKER)
+                if square:
+                    break
 
-    if not square:
-        square = random.choice(empty_squares(board))
+        if not square:
+            square = random.choice(empty_squares(board))
 
     board[square] = COMPUTER_MARKER
 
