@@ -5,7 +5,7 @@ MOVES_FIRST = 'Choose' # Options are 'Computer', 'Player', 'Choose'
 INITIAL_MARKER = ' '
 HUMAN_MARKER = 'X'
 COMPUTER_MARKER = '0'
-SCORE_TO_WIN = 1
+SCORE_TO_WIN = 3
 WINNING_LINES = [
     [1, 2, 3], [4, 5, 6], [7, 8, 9], # rows
     [1, 4, 7], [2, 5, 8], [3, 6, 9], # columns
@@ -165,18 +165,18 @@ def keep_score(score):
 def display_score(score):
     prompt(f"Current score is {score['Player']} : {score['Computer']}")
 
-
-board = {
-    1 : ' ', # top left
-    2 : ' ', # top center
-    3 : ' ', # top right
-    4 : ' ', # middle left
-    5 : ' ', # middle center
-    6 : ' ', # middle right
-    7 : ' ', # bottom left
-    8 : ' ', # bottom center
-    9 : ' ' # bottom right
-}
+# Board data structure visual
+# board = {
+#     1 : ' ', # top left
+#     2 : ' ', # top center
+#     3 : ' ', # top right
+#     4 : ' ', # middle left
+#     5 : ' ', # middle center
+#     6 : ' ', # middle right
+#     7 : ' ', # bottom left
+#     8 : ' ', # bottom center
+#     9 : ' ' # bottom right
+# }
 
 
 def play_tic_tac_toe():
