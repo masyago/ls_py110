@@ -5,8 +5,8 @@
 # 4. If player bust, dealer wins. - DONE
 # 5. Dealer turn: hit or stay -DONE
 #    - repeat until total >= 17 
-# 6. If dealer busts, player wins. - 
-# 7. Compare cards and declare winner.
+# 6. If dealer busts, player wins. - DONE
+# 7. Compare cards and declare winner.- DONE
 
 import random
 
@@ -16,11 +16,11 @@ SUITES = ['C', 'D', 'H', 'S']
 TWENTY_ONE = 21
 
 def initialize_deck():
-    return [[suit, value] for suit in SUITES
+    deck = [[suit, value] for suit in SUITES
                           for value in VALUES]
-
-def shuffle(deck):
+    
     random.shuffle(deck)
+    return deck
 
 def deal_cards(deck):
     for _ in range(2):
@@ -57,10 +57,7 @@ def sum_value(cards):
     return total_value
 
 def busted(total_value):
-    if total_value > TWENTY_ONE:
-        return True
-    
-    return False
+    return total_value > TWENTY_ONE
 
 def display_winner(person):
     if person == 'Dealer':
@@ -84,16 +81,14 @@ dealer_cards = [] # not sure if they the variables should be global
 
 
 def play_21():
+    print("\nLet's play Twenty-One!")
     deck = initialize_deck()
-    shuffle(deck)
     deal_cards(deck)
     print(f"Player cards: {player_cards}. ")
     print(f"One of the dealer cards: {random.choice(dealer_cards)}")
     player_sum_value = sum_value(player_cards)
     dealer_sum_value = sum_value(dealer_cards)
 
-    # print(player_sum_value)
-    # print(dealer_sum_value) # update to show only one dealer's card
 
     # Player turn
     while True:
