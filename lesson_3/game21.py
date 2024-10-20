@@ -35,7 +35,6 @@ def deal_one_more_card(deck, person):
 
     return deck
 
-
 def sum_value(cards):
     values = [card[1] for card in cards]
 
@@ -70,18 +69,19 @@ def display_winner(person):
 def determine_winner(player_sum_value, dealer_sum_value):
     if ((player_sum_value <= TWENTY_ONE) and (player_sum_value > dealer_sum_value)):
         return 'Player'
-    elif ((dealer_sum_value <= TWENTY_ONE) and (dealer_sum_value > player_sum_value)): 
+    
+    if ((dealer_sum_value <= TWENTY_ONE) and (dealer_sum_value > player_sum_value)): 
         return 'Dealer'
-    else:
-        return 'Nobody'
+    
+    return 'Nobody'
 
     
-player_cards = [] # not sure if they the variables should be global
-dealer_cards = [] # not sure if they the variables should be global
-
+player_cards = [] # not sure if the variables should be global
+dealer_cards = [] # not sure if the variables should be global
 
 def play_21():
     print("\nLet's play Twenty-One!")
+
     deck = initialize_deck()
     deal_cards(deck)
     print(f"Player cards: {player_cards}. ")
@@ -95,7 +95,8 @@ def play_21():
         answer = input("\nhit or stay? ")
         if answer == 'stay':
             break
-        elif answer == 'hit':
+
+        if answer == 'hit':
             deal_one_more_card(deck, 'Player')
             print(f'\nYour cards are {player_cards}')
             player_sum_value = sum_value(player_cards)
