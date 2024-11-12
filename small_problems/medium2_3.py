@@ -36,27 +36,125 @@ if sum(angle_list) != 180 or smallest_angle <= 0:
 - else:
     - return 'acute'
 
+# '''
+
+# def triangle(angle1, angle2, angle3):
+#     angle_list = [angle1, angle2, angle3]
+#     largest_angle = max(angle_list)
+#     smallest_angle = min(angle_list)
+
+#     if sum(angle_list) != 180 or smallest_angle <= 0:
+#         return 'invalid'
+
+#     if largest_angle == 90:
+#         return 'right'
+#     elif largest_angle > 90:
+#         return 'obtuse'
+#     else: 
+#         return 'acute'
+
+
+
+# print(triangle(60, 70, 50) == "acute")      # True
+# print(triangle(30, 90, 60) == "right")      # True
+# print(triangle(120, 50, 10) == "obtuse")    # True
+# print(triangle(0, 90, 90) == "invalid")     # True
+# print(triangle(50, 50, 50) == "invalid")    # True
+
+
+
+
+
+
 '''
+input: 3 numbers representing angles
+output: string representing triangle representation
+
+rules:
+- triangle is 'valid' if:
+    - sum of 3 angles is 180
+    - every angle > 0
+
+- 'right': One angle is a right angle (exactly 90 degrees).  -> largest angle == 90
+- 'obtuse': One angle is greater than 90 degrees. -> largest angle 90
+ - 'acute': All three angles are less than 90 degrees.
+
+ DS: list to keep track of the angles
+
+ ALG:
+ - create a list angles = [angle1, angle2, angle3]
+ - largest_angle = max(angles)
+
+ - ##### helper function is_valid(angles):
+     - if sum(angles) != 180:
+         - return False
+
+    - iterate over a in angles: 
+         - if a <= 0:
+            - return False
+
+    return True
+
+- if triangle in not valid (meaning is_valid fucn returns False), return 'invalid'
+
+- otherwise
+- if largest_angle == 90:
+    - return 'right'
+- elif largest_angle > 90:
+     - return 'obtuse'
+- else:
+    - return 'acute'
+
+
+- 
+
+print(triangle(60, 70, 50) == "acute")      # True
+largest_angle = 70
+smaller_angle = 50
+
+is_valid? 
+    sum = 180 ok
+    smallest angle <= 0 ok
+    return True
+
+not 'right'
+not 'obtuse'
+return 'acute'
+
+
+'''
+def is_valid(lst_of_angles):
+    if sum(lst_of_angles) != 180:
+        return False
+    
+    if any([a <= 0 for a in lst_of_angles]):
+        return False
+
+    return True
+
+
 
 def triangle(angle1, angle2, angle3):
-    angle_list = [angle1, angle2, angle3]
-    largest_angle = max(angle_list)
-    smallest_angle = min(angle_list)
+    angles = [angle1, angle2, angle3]
+    largest_angle = max(angles)
+    smallest_angle = min(angles)
 
-    if sum(angle_list) != 180 or smallest_angle <= 0:
+    if not is_valid(angles):
         return 'invalid'
-
+    
     if largest_angle == 90:
         return 'right'
     elif largest_angle > 90:
         return 'obtuse'
-    else: 
+    else:
         return 'acute'
-
-
 
 print(triangle(60, 70, 50) == "acute")      # True
 print(triangle(30, 90, 60) == "right")      # True
 print(triangle(120, 50, 10) == "obtuse")    # True
 print(triangle(0, 90, 90) == "invalid")     # True
 print(triangle(50, 50, 50) == "invalid")    # True
+
+
+
+# all_not_zero = all([angle > 0 for angle in angles])
